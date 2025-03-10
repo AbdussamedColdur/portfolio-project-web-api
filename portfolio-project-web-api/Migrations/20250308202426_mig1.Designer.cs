@@ -12,7 +12,7 @@ using portfolio_project_web_api.DAL.Context;
 namespace portfolio_project_web_api.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250301092159_mig1")]
+    [Migration("20250308202426_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
