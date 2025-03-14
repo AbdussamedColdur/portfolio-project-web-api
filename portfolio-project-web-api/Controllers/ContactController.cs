@@ -13,10 +13,12 @@ namespace portfolio_project_web_api.Controllers
 
         private readonly Context _context;
 
+
         public ContactController(Context context)
         {
             _context = context;
         }
+
 
         [HttpGet("GetContacts")]
         public async Task<ActionResult<IEnumerable<Contact>>> GetContacts()
@@ -25,12 +27,14 @@ namespace portfolio_project_web_api.Controllers
             return Ok(values);
         }
 
+
         [HttpGet("GetContactById/{id}")]
         public async Task<ActionResult<Contact>> GetContactById(int id)
         {
             var value = await _context.Contacts.FirstOrDefaultAsync(x => x.ContactId == id);
             return Ok(value);
         }
+
 
         [HttpPost("AddContact")]
         public async Task<ActionResult> AddContact([FromBody] Contact contact)
@@ -40,6 +44,7 @@ namespace portfolio_project_web_api.Controllers
             return Ok();
         }
 
+
         [HttpPost("UpdateContact")]
         public async Task<ActionResult> UpdateContact([FromBody] Contact contact)
         {
@@ -47,6 +52,7 @@ namespace portfolio_project_web_api.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+
 
         [HttpPost("DeleteContact/{id}")]
         public async Task<ActionResult> DeleteContact(int id)
@@ -57,5 +63,7 @@ namespace portfolio_project_web_api.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+
+
     }
 }

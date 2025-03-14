@@ -9,10 +9,12 @@ public class AboutController : ControllerBase
 {
     private readonly Context _context;
 
+    
     public AboutController(Context context)
     {
         _context = context;
     }
+
 
     [HttpGet("GetAbouts")]
     public async Task<ActionResult<IEnumerable<About>>> GetAbouts()
@@ -21,16 +23,18 @@ public class AboutController : ControllerBase
         return Ok(abouts);
     }
 
+
     [HttpGet("GetAboutById/{id}")]
     public async Task<ActionResult<About>> GetAboutById(int id)
     {
-        var about = await _context.Abouts.FindAsync(id);
-        if (about == null)
+        var value = await _context.Abouts.FindAsync(id);
+        if (value == null)
         {
             return NotFound();
         }
-        return Ok(about);
+        return Ok(value);
     }
+
 
     [HttpPost("AddAbout")]
     public async Task<ActionResult<About>> AddAbout(About about)
@@ -40,21 +44,23 @@ public class AboutController : ControllerBase
         return Ok();
     }
 
+
     [HttpPost("DeleteAbout/{id}")]
     public async Task<ActionResult<About>> DeleteAbout(int id)
     {
-        var about = await _context.Abouts.FindAsync(id);
-        if (about == null)
+        var value = await _context.Abouts.FindAsync(id);
+        if (value == null)
         {
             return NotFound();
         }
         else
         {
-            about.isActive = false;
+            value.isActive = false;
             await _context.SaveChangesAsync();
             return Ok();
         }
     }
+
 
     [HttpPost("UpdateAbout/{id}")]
     public async Task<ActionResult> UpdateAbout(int id, [FromBody] About about)
@@ -73,5 +79,6 @@ public class AboutController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok("Güncelleme başarılı.");
     }
+
 
 }
