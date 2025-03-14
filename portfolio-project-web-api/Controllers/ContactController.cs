@@ -57,11 +57,17 @@ namespace portfolio_project_web_api.Controllers
         [HttpPost("DeleteContact/{id}")]
         public async Task<ActionResult> DeleteContact(int id)
         {
-            var value = await _context.Contacts.FirstOrDefaultAsync(x => x.ContactId == id);
-            value.isActive = false;
-            _context.Contacts.Update(value);
-            await _context.SaveChangesAsync();
-            return Ok();
+            var value = await _context.Contacts.FindAsync(id);
+            if (value == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                value.isActive = false;
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
         }
 
 
