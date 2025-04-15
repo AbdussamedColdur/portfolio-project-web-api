@@ -28,4 +28,11 @@ app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var srv = scope.ServiceProvider;
+    var context = srv.GetRequiredService<Context>();
+    context.Database.Migrate();
+}
+
 app.Run();
